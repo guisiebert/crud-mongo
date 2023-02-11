@@ -1,0 +1,14 @@
+html
+    head  
+        title Edit a Child
+    body
+        h1= `Editing a child of ${parent}`
+        form(action=`/update-child-handler`, method="POST")
+            input(type="text", name="childName", placeholder="Child Name", value=`${childName}`)
+            //- input(type='number', name="childAge", placeholder='Age')
+            input(type="hidden", name="parentID", value=`${parentID}`)
+            input(type="hidden", name="childIndex", value=`${childIndex}`)
+            button(type="submit") Submit
+
+        p= `ParentID: ${parentID}`
+

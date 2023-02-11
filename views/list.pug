@@ -1,0 +1,67 @@
+html
+    head  
+        title Useless Users
+    body
+        h1 Users List
+        a(href="/users-form") 
+            button Add new users
+        br
+       
+        // Versão com table
+        each user, user_index in users
+            br
+            table(style='width:100%', border='1')
+                tr 
+                    th Role
+                    th Name
+                    th Age
+                    th Add Child  
+                    th Edit
+                    th Delete
+                    //- th ID
+                    tr 
+                        td 
+                            b Parent
+                        td 
+                            b=`${user.userName}`
+                        td 
+                            b=`${user.age}`
+                        td
+                            form(action=`/new-child/${user.userName}/${user._id}`, method="GET")
+                                button(type="submit") Add Child
+                        td
+                            form(action=`/user-edit/${user._id}/${user.userName}/${user.age}`, method="GET")
+                                button(type="submit") Edit
+                        td 
+                            form(action=`/delete/${user._id}/`, method="GET")
+                                button(type="submit") Delete
+                        //- td= `${user._id}`
+                    each child, cIndex in user.children
+                        tr 
+                            td Child
+                            td= `${child}`
+                            td child
+                            td -
+                            td
+                                form(action=`/update-child/`, method="POST")
+                                    input(type="hidden", name="parent", value=`${user.userName}`)
+                                    input(type="hidden", name="parentID", value=`${user._id}`)
+                                    input(type="hidden", name="childIndex", value=`${cIndex}`)
+                                    input(type="hidden", name="childName", value=`${child}`)
+                                    button(type="submit") Edit
+                            td 
+                                form(action='/delete-child/', method="POST")
+                                    input(type="hidden", name="parentID", value=`${user._id}`)
+                                    input(type="hidden", name="childIndex", value=`${cIndex}`)
+                                    button(type="submit") Delete
+                            //- td= cIndex
+
+        br
+        h4 Crazy Buttons:
+        a(href="/seed") 
+            button Add Batch of Users 
+        a(href="/panic") 
+            button Remove All
+
+
+        // form(action=`/delete-child/${user._id}/${cIndex}`, method="POST")
