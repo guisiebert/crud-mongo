@@ -2,13 +2,13 @@ html
     head  
         title Edit a Child
     body
-        h1= `Editing a child of ${parent}`
+        h1= `Editing a child of ${child.parent}`
         form(action=`/update-child-handler`, method="POST")
-            input(type="text", name="childName", placeholder="Child Name", value=`${childName}`)
-            //- input(type='number', name="childAge", placeholder='Age')
-            input(type="hidden", name="parentID", value=`${parentID}`)
-            input(type="hidden", name="childIndex", value=`${childIndex}`)
+            input(type="text", name="childName", placeholder="Child Name", value=`${child.childName}`)
+            input(type='number', name="childAge", placeholder='Age', value=`${child.childAge}`)
+            input(type="hidden", name="parentID", value=`${child.parentID}`)
+            input(type="hidden", name="childIndex", value=`${child.childIndex}`)
             button(type="submit") Submit
 
-        p= `ParentID: ${parentID}`
+        p= `ParentID: ${child.parentID}`
 

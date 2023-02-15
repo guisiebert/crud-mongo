@@ -1,10 +1,15 @@
-// Mongo
-const { MongoClient, ObjectId } = require("mongodb");
-const uri = "mongodb://localhost:27017";
-const client = new MongoClient(uri);
-const database = client.db("eureca");
-const eurecas = database.collection("eureca");
-// const ObjectId = require("mongodb").ObjectId;
+// // Mongo
+// const { MongoClient } = require("mongodb");
+// const uri = "mongodb://localhost:27017";
+// const client = new MongoClient(uri);
+// const database = client.db("eureca");
+// const eurecas = database.collection("eureca");
+
+// Mongoose
+const mongoose = require("mongoose");
+const User = require("../models/schemas/User");
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
 
 const { readUsers, createUsers, deleteUser } = require("../models/users");
 const redirectToList = (response) => response.redirect("/");
@@ -36,19 +41,21 @@ const usersDelete = (request, response) => {
   redirectToList(response);
 };
 
-const usersEditForm = (request, response) => {
+const userEditRender = (request, response) => {
   const user = request.params;
   response.render("edit", { user });
 };
 
-const usersEditHandler = async (request, response) => {
-  const user = request.body;
-  await eurecas.updateOne(
-    { _id: ObjectId(user._id) },
-    { $set: { userName: user.userName, age: user.age } }
+const userEdit = async (req, res) => {
+  await User.updateOne(
+    { _id: req.body._id },
+    {
+      userName: req.body.userName,
+      age: req.body.age,
+    }
   );
 
-  redirectToList(response);
+  redirectToList(res);
 };
 
 module.exports = {
@@ -56,6 +63,6 @@ module.exports = {
   usersList,
   usersSubmit,
   usersDelete,
-  usersEditForm,
-  usersEditHandler,
+  userEditRender,
+  userEdit,
 };

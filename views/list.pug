@@ -24,6 +24,7 @@ html
                             b Parent
                         td 
                             b=`${user.userName}`
+
                         td 
                             b=`${user.age}`
                         td
@@ -39,15 +40,16 @@ html
                     each child, cIndex in user.children
                         tr 
                             td Child
-                            td= `${child}`
-                            td child
-                            td -
+                            td= `${child.childName}`
+                            td= `${child.childAge}`
+                            td= `${child._id}`
                             td
                                 form(action=`/update-child/`, method="POST")
                                     input(type="hidden", name="parent", value=`${user.userName}`)
                                     input(type="hidden", name="parentID", value=`${user._id}`)
                                     input(type="hidden", name="childIndex", value=`${cIndex}`)
-                                    input(type="hidden", name="childName", value=`${child}`)
+                                    input(type="hidden", name="childName", value=`${child.childName}`)
+                                    input(type='hidden', name='childAge', value=`${child.childAge}`)
                                     button(type="submit") Edit
                             td 
                                 form(action='/delete-child/', method="POST")

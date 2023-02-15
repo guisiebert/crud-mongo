@@ -5,8 +5,8 @@ html
         h1= `Adding a child for ${parent}`
         form(action=`/new-child-handler`, method="POST")
             input(type="text", name="childName", placeholder="Child Name")
-            //- input(type='number', name="childAge", placeholder='Age')
-            input(type="hidden", name="ParentID", value=`${parentID}`)
+            input(type='number', name="childAge", placeholder='Age')
+            input(type="hidden", name="parentID", value=`${parentID}`)
             button(type="submit") Submit
 
         p= `ParentID: ${parentID}`
